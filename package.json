@@ -1,0 +1,19 @@
+{
+  "name": "regiment-channels",
+  "version": "0.0.1",
+  "description": "Allow control of access to regiment discord channels by the regiment's captain",
+  "main": "index.js",
+  "scripts": {
+    "test": "testme"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Magikaas/regiment-channels.git"
+  },
+  "author": "Magikaas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Magikaas/regiment-channels/issues"
+  },
+  "homepage": "https://github.com/Magikaas/regiment-channels#readme",
+}
