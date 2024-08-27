@@ -19,6 +19,7 @@ class RegimentsChannelRestrictor {
     }
 
     async addRegimentChatVisibilityCommand() {
+        // Provide the slash command for the bot to add to the guild
         return new SlashCommandBuilder()
             .setName("regimentchatvisibility")
             .setDescription("Show or hide regiment chat")
@@ -54,12 +55,14 @@ class RegimentsChannelRestrictor {
         
                         let textChannelId = "";
 
+                        // Check if there is a text channel for the regiment in the database
                         if (regiment.regiment_channels.text) {
                             textChannelId = regiment.regiment_channels.text;
                         }
 
                         let voiceChannelId = "";
 
+                        // Check if there is a voice channel for the regiment in the database
                         if (regiment.regiment_channels.voice) {
                             voiceChannelId = regiment.regiment_channels.voice;
                         }
@@ -79,6 +82,7 @@ class RegimentsChannelRestrictor {
                         const textChannelViewPermissions = textChannel.permissionsFor(this.guild.members.cache.get(this.client.user.id)).serialize();
                         const voiceChannelViewPermissions = voiceChannel.permissionsFor(this.guild.members.cache.get(this.client.user.id)).serialize();
 
+                        // Check if the bot has permission to view the text and voice channels (required to show or hide them)
                         if (!textChannelViewPermissions.ViewChannel || !voiceChannelViewPermissions.ViewChannel) {
                             let message = "I do not have permission to view the channels: ";
 
@@ -112,14 +116,18 @@ class RegimentsChannelRestrictor {
                             interaction.reply({ content: "Hiding channels: <#" + textChannelId + ">, <#" + voiceChannelId + ">", ephemeral: true });
 
                             if (textChannel) {
+                                // Make sure the bot can see the channel
                                 await textChannel.permissionOverwrites.edit(this.guild.members.cache.get(this.client.user.id), { ViewChannel: true });
 
+                                // Hide the channel from everyone else
                                 await textChannel.permissionOverwrites.edit(this.guild.id, { ViewChannel: false });
                             }
 
                             if (voiceChannel) {
+                                // Make sure the bot can see the channel
                                 await voiceChannel.permissionOverwrites.edit(this.guild.members.cache.get(this.client.user.id), { ViewChannel: true });
 
+                                // Hide the channel from everyone else
                                 await voiceChannel.permissionOverwrites.edit(this.guild.id, { ViewChannel: false });
                             }
                         }
